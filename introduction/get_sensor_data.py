@@ -1,3 +1,5 @@
+#!python2
+
 '''
 In this exercise you need to know how to get sensor data.
 
@@ -20,8 +22,10 @@ class MyAgent(SparkAgent):
         angle = 0
         temperature = 0
         # YOUR CODE HERE
-        # get angle and temperature to current data of joint HeadYaw
-
+        # get angle and temperature to current data of joint HeadYaw        
+        angle = perception.joint["HeadYaw"]
+        temperature = perception.joint_temperature["HeadYaw"]
+        
         print 'HeadYaw angle: ' + str(angle) + ' temperature: ' + str(temperature)
         return super(MyAgent, self).think(perception)
 
