@@ -34,7 +34,7 @@ class AngleInterpolationAgent(PIDAgent):
         self.keyframes = ([], [], [])
         self.start_time = self.perception.time
 
-    def think(self, perception):
+    def think(self, perception):        
         target_joints = self.angle_interpolation(self.keyframes, perception)
         self.target_joints.update(target_joints)
         return super(AngleInterpolationAgent, self).think(perception)
@@ -44,6 +44,7 @@ class AngleInterpolationAgent(PIDAgent):
         # YOUR CODE HERE
         start_time = perception.time - self.start_time
 
+        print keyframes
         names, times, keys = keyframes
 
         for i, name in enumerate(names):
@@ -64,9 +65,10 @@ class AngleInterpolationAgent(PIDAgent):
                         p1 = p0 + keys[i][j][2][2]
                         p2 = p3 + keys[i][j][1][2]
                         t = (start_time - timesi[j]) / (timesi[j + 1] - timesi[j])
-                try:
+                try:                    
                     target_joints[name] = ((1-t)**3*p0 + 3*(1-t)**2*t*p1 + 3*(1-t)*t**2*p2 + t**3*p3)
                 except:
+                    #print "done interpolating"                    
                     break
         
         return target_joints    

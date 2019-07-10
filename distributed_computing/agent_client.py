@@ -10,6 +10,11 @@ import weakref
 import xmlrpclib as rpc
 import threading
 
+import os
+import sys
+sys.path.append(os.path.join(os.path.abspath(os.path.dirname(__file__)), '..', 'kinematics'))
+
+from keyframes import hello
 
 class PostHandler(object):
     '''the post hander wraps function to be excuted in paralle
@@ -20,21 +25,21 @@ class PostHandler(object):
     def execute_keyframes(self, keyframes):
         '''non-blocking call of ClientAgent.execute_keyframes'''
         # YOUR CODE HERE
-        thread = threading.Thread(target=self.proxy.execute_keyframes, args=(keyframes))
+        thread = threading.Thread(target=self.proxy.execute_keyframes, args=[keyframes])
         thread.start()
 
     def set_transform(self, effector_name, transform):
         '''non-blocking call of ClientAgent.set_transform'''
         # YOUR CODE HERE
-        thread = threading.Thread(target=self.proxy.set_transform, args=(effector_name, transform))
+        thread = threading.Thread(target=self.proxy.set_transform, args=[effector_name, transform])
         thread.start()
 
     def set_angle(self, joint_name, angle):
         '''non-blocking call of ClientAgent.set_angle'''
         # YOUR CODE HERE        
-        #thread = threading.Thread(target=self.proxy.set_angle, args=(joint_name, angle))
-        #thread.start()
-        self.proxy.set_angle(joint_name,angle)
+        thread = threading.Thread(target=self.proxy.set_angle, args=[joint_name, angle])
+        thread.start()
+        #elf.proxy.set_angle(joint_name,angle)
 
 
 class ClientAgent(object):
@@ -86,8 +91,10 @@ if __name__ == '__main__':
     agent = ClientAgent(proxy)
     # TEST CODE HERE
     #print proxy.system.listMethods()
-    agent.post_handler.set_angle("LShoulderPitch",5)
+    keyframes = hello()
+    agent.post_handler.execute_keyframes(keyframes)
     #print agent.get_angle("LShoulderPitch")
+    #agent.post_handler.set_angle("LShoulderPitch", 5)
     
 
 

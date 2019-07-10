@@ -21,6 +21,9 @@ sys.path.append(os.path.join(os.path.abspath(os.path.dirname(__file__)), '..', '
 
 from inverse_kinematics import InverseKinematicsAgent
 
+# test
+from keyframes import hello
+
 class RequestHandler(SimpleXMLRPCRequestHandler):
     rpc_paths = ('/RPC2',)
 
@@ -39,7 +42,8 @@ class ServerAgent(InverseKinematicsAgent):
         '''set target angle of joint for PID controller
         '''
         # YOUR CODE HERE
-        self.target_joints[joint_name] = angle
+        print angle
+        self.target_joints[joint_name] = angle        
         return 0
 
     def get_posture(self):
@@ -52,7 +56,8 @@ class ServerAgent(InverseKinematicsAgent):
         e.g. return until keyframes are executed
         '''
         # YOUR CODE HERE
-        self.keyframes = keyframes
+        #print keyframes
+        self.keyframes = hello()
         return 0
 
     def get_transform(self, name):

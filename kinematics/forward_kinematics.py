@@ -99,6 +99,8 @@ class ForwardKinematicsAgent(AngleInterpolationAgent):
         T[0,3] = self.jointOffsets[joint_name][0]
         T[1,3] = self.jointOffsets[joint_name][1]
         T[2,3] = self.jointOffsets[joint_name][2]
+        
+        
 
         return T
 

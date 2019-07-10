@@ -263,7 +263,7 @@ class SparkAgent(object):
         self.act(action)
 
     def run(self):
-        while True:
+        while True:            
             self.sense_think_act()
 
     def start(self):
